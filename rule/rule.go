@@ -1,5 +1,5 @@
 package rule
 
 import (
-	_ "crawl/rule/city58"
+	_ "github.com/crawl/rule/city58"
 )
