@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	exec.DefaultRun("web")
+	exec.DefaultRun("gui")
 }

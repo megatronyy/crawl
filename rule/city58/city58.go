@@ -20,39 +20,43 @@ var CitySpcz = &Spider{
 		Root: func(ctx *Context) {
 			ctx.AddQueue(&request.Request{
 				Url:  "http://bj.58.com/shangpucz/pn1/",
-				Rule: "请求列表",
+				Rule: "商铺列表",
 				Temp: map[string]interface{}{"p": 1},
 			})
 		},
 
 		Trunk: map[string]*Rule{
-			"请求列表": {
+			"商铺列表": {
 				ParseFunc: func(ctx *Context) {
 					var curr = ctx.GetTemp("p", 0).(int)
-					if c := ctx.GetDom().Find(".content-side-left .pager strong span").Text(); c != strconv.Itoa(curr) {
+					if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr) {
 						return
 					}
 
 					ctx.AddQueue(&request.Request{
 						Url:  "http://bj.58.com/shangpucz/pn" + strconv.Itoa(curr+1) + "/",
-						Rule: "请求列表",
+						Rule: "商铺列表",
 						Temp: map[string]interface{}{"p": curr + 1},
 					})
 
 					//用指定规则解析响应流
-					ctx.Parse("获取列表")
+					ctx.Parse("获取详情")
 				},
 			},
 
-			"获取列表": {
+			"获取详情": {
 				ParseFunc: func(ctx *Context) {
-					ctx.GetDom().Find(".content-side-left .house-list-wrap li").Each(func(i int, s *goquery.Selection) {
-						url, _ := s.Find(".pc a").Attr("href")
-						ctx.AddQueue(&request.Request{
-							Url:      url,
-							Rule:     "保存结果",
-							Priority: 1,
-						})
+					li := ctx.GetDom().Find("div.content-side-left>ul.house-list-wrap>li")
+					li.Each(func(i int, s *goquery.Selection) {
+						a := s.Find("div.pic>a")
+						url, _ := a.Attr("href")
+						if url != "" {
+							ctx.AddQueue(&request.Request{
+								Url:      url,
+								Rule:     "保存结果",
+								Priority: 1,
+							})
+						}
 					})
 				},
 			},
