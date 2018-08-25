@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	CitySpcz.SetTimer("cityspcz", 30*time.Minute, nil)
+	CitySpcz.SetTimer("cityspcz", 10*time.Minute, nil)
 	CitySpcz.Register()
 }
 
@@ -33,7 +33,11 @@ var CitySpcz = &Spider{
 			"house_page": {
 				ParseFunc: func(ctx *Context) {
 					var curr = ctx.GetTemp("p", 0).(int)
-					if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr) && curr < 5 {
+					if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr+1) {
+						return
+					}
+					//只抓取前五页
+					if curr > 5 {
 						return
 					}
 
