@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	CitySpcz.SetTimer("cityspcz", 5*time.Minute, nil)
+	CitySpcz.SetTimer("cityspcz", 10*time.Minute, nil)
 	CitySpcz.Register()
 }
 
@@ -32,13 +32,15 @@ var CitySpcz = &Spider{
 			"house_page": {
 				ParseFunc: func(ctx *Context) {
 					var curr = ctx.GetTemp("p", 0).(int)
-					for curr < 16 {
-						ctx.AddQueue(&request.Request{
-							Url:        "http://bj.58.com/shangpucz/pn" + strconv.Itoa(curr+1) + "/",
-							Rule:       "house_list",
-							Reloadable: true,
-						})
+					if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr) && curr < 5 {
+						return
 					}
+
+					ctx.AddQueue(&request.Request{
+						Url:  "http://bj.58.com/shangpucz/pn" + strconv.Itoa(curr+1) + "/",
+						Rule: "house_list",
+						Temp: map[string]interface{}{"p": curr + 1},
+					})
 
 					//用指定规则解析响应流
 					ctx.Parse("house_list")
