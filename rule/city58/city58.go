@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	CitySpcz.SetTimer("cityspcz", 10*time.Minute, nil)
+	CitySpcz.SetTimer("cityspcz", 30*time.Minute, nil)
 	CitySpcz.Register()
 }
 
