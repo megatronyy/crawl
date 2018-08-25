@@ -1,4 +1,4 @@
-# Pholcus [![GitHub release](https://img.shields.io/github/release/henrylee2cn/pholcus.svg?style=flat-square)](https://github.com/henrylee2cn/pholcus/releases) [![report card](https://goreportcard.com/badge/github.com/henrylee2cn/pholcus?style=flat-square)](http://goreportcard.com/report/henrylee2cn/pholcus) [![github issues](https://img.shields.io/github/issues/henrylee2cn/pholcus.svg?style=flat-square)](https://github.com/henrylee2cn/pholcus/issues?q=is%3Aopen+is%3Aissue) [![github closed issues](https://img.shields.io/github/issues-closed-raw/henrylee2cn/pholcus.svg?style=flat-square)](https://github.com/henrylee2cn/pholcus/issues?q=is%3Aissue+is%3Aclosed) [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/henrylee2cn/pholcus) [![view Go大数据](https://img.shields.io/badge/官方QQ群-Go大数据(42731170)-27a5ea.svg?style=flat-square)](http://jq.qq.com/?_wv=1027&k=XnGGnc)
+# Pholcus [![GitHub release](https://img.shields.io/github/release/henrylee2cn/pholcus.svg?style=flat-square)]
 
 Pholcus（幽灵蛛）是一款纯Go语言编写的支持分布式的高并发、重量级爬虫软件，定位于互联网数据采集，为具备一定Go或JS编程基础的人提供一个只需关注规则定制的功能强大的爬虫工具。
 
