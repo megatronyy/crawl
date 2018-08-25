@@ -5,17 +5,19 @@ import (
 	"github.com/henrylee2cn/pholcus/app/downloader/request"
 	"strconv"
 	"github.com/henrylee2cn/pholcus/common/goquery"
+	"time"
 )
 
 func init() {
+	CitySpcz.SetTimer("cityspcz", 5 * time.Minute, nil)
 	CitySpcz.Register()
 }
 
 var CitySpcz = &Spider{
 	Name:         "business",
 	Description:  "58同城商铺出租的信息",
-	Pausetime:    3000,
-	EnableCookie: false,
+	Pausetime:    5000,
+	EnableCookie: true,
 	RuleTree: &RuleTree{
 		Root: func(ctx *Context) {
 			ctx.AddQueue(&request.Request{
