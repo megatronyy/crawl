@@ -36,7 +36,7 @@ var CitySpcz = &Spider{
 					//}
 
 					//只抓取前五页
-					if curr >= 5 {
+					if curr >= 2 {
 						curr = 0
 					}
 
