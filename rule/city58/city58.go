@@ -34,14 +34,15 @@ var CitySpcz = &Spider{
 					//if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr) {
 					//	return
 					//}
+
 					//只抓取前五页
-					if curr > 5 {
+					if curr >= 5 {
 						curr = 0
 					}
 
 					ctx.AddQueue(&request.Request{
 						Url:  "http://bj.58.com/shangpucz/pn" + strconv.Itoa(curr+1) + "/",
-						Rule: "house_list",
+						Rule: "house_page",
 						Temp: map[string]interface{}{"p": curr + 1},
 					})
 

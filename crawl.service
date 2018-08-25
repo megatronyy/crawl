@@ -5,8 +5,6 @@ After=network.target
 
 [Service]
 ExecStart=/home/crawl/start.sh -start
-ExecReload=/home/crawl/start.sh -restart
-ExecStop=/home/crawl/start.sh -stop
 PrivateTmp=True
 
 [Install]
