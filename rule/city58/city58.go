@@ -36,7 +36,7 @@ var CitySpcz = &Spider{
 					//}
 
 					//只抓取前五页
-					if curr >= 2 {
+					if curr >= 5 {
 						curr = 0
 					}
 
@@ -44,6 +44,7 @@ var CitySpcz = &Spider{
 						Url:  "http://bj.58.com/shangpucz/pn" + strconv.Itoa(curr+1) + "/",
 						Rule: "house_page",
 						Temp: map[string]interface{}{"p": curr + 1},
+						Reloadable: true,
 					})
 
 					//用指定规则解析响应流
