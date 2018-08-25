@@ -5,12 +5,10 @@ import (
 	"github.com/henrylee2cn/pholcus/app/downloader/request"
 	"strconv"
 	"github.com/henrylee2cn/pholcus/common/goquery"
-	"time"
 	"strings"
 )
 
 func init() {
-	CitySpcz.SetTimer("cityspcz", 10*time.Minute, nil)
 	CitySpcz.Register()
 }
 
@@ -33,12 +31,12 @@ var CitySpcz = &Spider{
 			"house_page": {
 				ParseFunc: func(ctx *Context) {
 					var curr = ctx.GetTemp("p", 0).(int)
-					if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr+1) {
-						return
-					}
+					//if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr) {
+					//	return
+					//}
 					//只抓取前五页
 					if curr > 5 {
-						return
+						curr = 0
 					}
 
 					ctx.AddQueue(&request.Request{
