@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"github.com/henrylee2cn/pholcus/common/goquery"
 	"time"
+	"strings"
 )
 
 func init() {
@@ -53,7 +54,7 @@ var CitySpcz = &Spider{
 					li.Each(func(i int, s *goquery.Selection) {
 						a := s.Find("div.pic>a")
 						url, _ := a.Attr("href")
-						if url != "" {
+						if url != "" && strings.Contains(url, "x.shtml") {
 							ctx.AddQueue(&request.Request{
 								Url:      url,
 								Rule:     "house_detail",
