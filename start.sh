@@ -4,6 +4,11 @@ set -e
 
 cd /usr/bin
 
+if [ ! -f crawl ];then
+    echo "crawl progrom not exists"
+    exit 0
+fi
+
 # 判断是否有执行权限
 if [ ! -x crawl ];then
     # 添加执行权限
