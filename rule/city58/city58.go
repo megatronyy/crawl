@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	CitySpcz.SetTimer("cityspcz", 5 * time.Minute, nil)
+	CitySpcz.SetTimer("cityspcz", 5*time.Minute, nil)
 	CitySpcz.Register()
 }
 
@@ -22,38 +22,30 @@ var CitySpcz = &Spider{
 		Root: func(ctx *Context) {
 			ctx.AddQueue(&request.Request{
 				Url:        "http://bj.58.com/shangpucz/pn1/",
-				Rule:       "商铺列表",
+				Rule:       "house_page",
 				Temp:       map[string]interface{}{"p": 1},
 				Reloadable: true,
 			})
 		},
 
 		Trunk: map[string]*Rule{
-			"商铺列表": {
+			"house_page": {
 				ParseFunc: func(ctx *Context) {
 					var curr = ctx.GetTemp("p", 0).(int)
-					//if c := ctx.GetDom().Find("div.content-side-left>div.pager>strong>span").Text(); c != strconv.Itoa(curr) {
-					//	return
-					//}
-
-					//只抓取前10页
-					if curr == 20 {
-						curr = 0
+					for curr < 16 {
+						ctx.AddQueue(&request.Request{
+							Url:        "http://bj.58.com/shangpucz/pn" + strconv.Itoa(curr+1) + "/",
+							Rule:       "house_list",
+							Reloadable: true,
+						})
 					}
 
-					ctx.AddQueue(&request.Request{
-						Url:        "http://bj.58.com/shangpucz/pn" + strconv.Itoa(curr+1) + "/",
-						Rule:       "商铺列表",
-						Temp:       map[string]interface{}{"p": curr + 1},
-						Reloadable: true,
-					})
-
 					//用指定规则解析响应流
-					ctx.Parse("获取详情")
+					ctx.Parse("house_list")
 				},
 			},
 
-			"获取详情": {
+			"house_list": {
 				ParseFunc: func(ctx *Context) {
 					li := ctx.GetDom().Find("div.content-side-left>ul.house-list-wrap>li")
 					li.Each(func(i int, s *goquery.Selection) {
@@ -62,7 +54,7 @@ var CitySpcz = &Spider{
 						if url != "" {
 							ctx.AddQueue(&request.Request{
 								Url:      url,
-								Rule:     "house",
+								Rule:     "house_detail",
 								Priority: 1,
 							})
 						}
@@ -70,7 +62,7 @@ var CitySpcz = &Spider{
 				},
 			},
 
-			"house": {
+			"house_detail": {
 				ItemFields: []string{
 					"标题",
 					"价格",
