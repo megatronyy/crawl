@@ -35,11 +35,13 @@ case $CMD in
         -a_proxyminute=0 \
         -a_keyins="<crawl><golang>" \
         -a_success=true -a_failure=true &
+        exit 0
         ;;
 -stop)
         # 停止爬虫服务
         port=$(sudo ps -ef | grep crawl | grep -v grep | awk '{print $2}')
         sudo kill $port
+        exit 0
         ;;
 -restart)
         # 重新启动爬虫服务
@@ -56,5 +58,8 @@ case $CMD in
         -a_proxyminute=0 \
         -a_keyins="<crawl><golang>" \
         -a_success=true -a_failure=true &
+        exit 0
         ;;
 esac
+
+
