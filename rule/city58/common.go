@@ -37,13 +37,13 @@ func getczuint(query *goquery.Document) string {
 
 /**获取发布人**/
 func publisher(query *goquery.Document) string {
-	发布人, _ := query.Find("div.div.house-basic-right>div.house_basic_jingji>p.nav>a>img").Attr("alt")
+	发布人, _ := query.Find("div.house-basic-right>div.house_basic_jingji>p.nav>a>img").Attr("alt")
 	return trim(发布人)
 }
 
 /**获取发布时间**/
 func publishtime(query *goquery.Document) string {
-	发布时间 := trim(query.Find("div.main-wrap>div.house-title>p.house-update-info.span").Text())
+	发布时间 := trim(query.Find("div.main-wrap>div.house-title>p.house-update-info>span").Eq(0).Text())
 	发布时间 = strings.Replace(发布时间, "更新于", "", -1)
 	发布时间 = strings.Replace(发布时间, "创建于", "", -1)
 	return trim(发布时间)
@@ -52,7 +52,7 @@ func publishtime(query *goquery.Document) string {
 /**获取发布人电话及归属地**/
 func publisherphone(query *goquery.Document) (string, string) {
 	联系电话 := query.Find("#houseChatEntry>div.house-chat-phone>p.phone-num").Text()
-	电话归属 := query.Find("#houseChatEntry>div.house-chat-phone>p.phone-belong>span").Eq(2).Text()
+	电话归属 := query.Find("#houseChatEntry>div.house-chat-phone>p.phone-belong>span").Eq(1).Text()
 	return trim(联系电话), trim(电话归属)
 }
 
@@ -78,9 +78,14 @@ func getother(query *goquery.Document) (string, string, string, string, string, 
 func getaddress(s *goquery.Selection) string {
 	var a string
 	s.Find(".house_basic_title_content_item3").Each(func(i int, selection *goquery.Selection) {
-		a += trim(selection.Text())
+		if i==0{
+			a += trim(selection.Text()) + " "
+		}else{
+			a += trim(selection.Text())
+		}
+
 	})
-	return trim(a)
+	return a
 }
 
 /**去掉空格换行符**/
