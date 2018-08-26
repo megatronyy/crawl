@@ -69,7 +69,7 @@ func getdetails(query *goquery.Document) string {
 func getother(query *goquery.Document) (string, string, string, string, string, string, string) {
 	rs := query.Find("div.house-basic-right>ul.house_basic_title_content>li")
 	面积 := trim(rs.Eq(0).Find(".house_basic_title_content_item2").Text())
-	类型 := trim(rs.Eq(0).Find("a.house_basic_title_content_item3").Text()) + trim(rs.Eq(1).Find("span.house_basic_title_content_item3").Text())
+	类型 := trim(rs.Eq(0).Find("a.house_basic_title_content_item3").Text())
 	经营状态 := trim(rs.Eq(1).Find("span.house_basic_title_content_item3").Text())
 	历史经营 := trim(rs.Eq(2).Find("span.house_basic_title_content_item3").Text())
 	付款方式 := trim(rs.Eq(3).Find("span.house_basic_title_content_item3").Text())
