@@ -4,7 +4,7 @@ import (
 	. "github.com/henrylee2cn/pholcus/app/spider"
 )
 
-func city58_parse(ctx *Context) {
+func city58_cz_parse(ctx *Context) {
 	query := ctx.GetDom()
 
 	var 标题, 价格, 单位, 出租价格, 出租单位, 面积, 类型, 经营状态, 历史经营, 付款方式, 租约方式, 详细地址, 发布时间, 发布人, 联系电话, 详情 string

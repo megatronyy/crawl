@@ -89,7 +89,7 @@ var CitySpcz = &Spider{
 					"详情",
 				},
 
-				ParseFunc: city58_parse,
+				ParseFunc: city58_cz_parse,
 			},
 		},
 	},
