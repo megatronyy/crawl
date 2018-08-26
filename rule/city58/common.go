@@ -13,25 +13,25 @@ func gettitle(query *goquery.Document) string {
 
 /**获取价格**/
 func getprice(query *goquery.Document) string {
-	价格 := query.Find("div.main-wrap>p.house_basic_title_money>span.house_basic_title_money_num").Text()
+	价格 := query.Find("div.house-basic-right>p.house_basic_title_money>span.house_basic_title_money_num").Text()
 	return trim(价格)
 }
 
 /**获取价格单位**/
 func getuint(query *goquery.Document) string {
-	单位 := query.Find("div.main-wrap>p.house_basic_title_money>span.house_basic_title_money_unit").Text()
+	单位 := query.Find("div.house-basic-right>p.house_basic_title_money>span.house_basic_title_money_unit").Text()
 	return trim(单位)
 }
 
 /**获取出租价格**/
 func getczprice(query *goquery.Document) string {
-	出租价格 := query.Find("div.main-wrap>p.house_basic_title_money>span.house_basic_title_money_num_chuzu").Text()
+	出租价格 := query.Find("div.house-basic-right>p.house_basic_title_money>span.house_basic_title_money_num_chuzu").Text()
 	return trim(出租价格)
 }
 
 /**获取出租单位**/
 func getczuint(query *goquery.Document) string {
-	出租单位 := query.Find("div.main-wrap>p.house_basic_title_money>span.house_basic_title_money_unit_chuzu").Text()
+	出租单位 := query.Find("div.house-basic-right>p.house_basic_title_money>span.house_basic_title_money_unit_chuzu").Text()
 	return trim(出租单位)
 }
 
@@ -63,8 +63,7 @@ func getdetails(query *goquery.Document) string {
 }
 
 func getother(query *goquery.Document) (string, string, string, string, string, string, string) {
-	rs := query.Find("div.house-basic-right>.house_basic_title_content")
-	rs.Eq(1).Find(".house_basic_title_content_item2").Text()
+	rs := query.Find("div.house-basic-right>ul.house_basic_title_content>li")
 	面积 := trim(rs.Eq(1).Find(".house_basic_title_content_item2").Text())
 	类型 := trim(rs.Eq(1).Find("a.house_basic_title_content_item3").Text()) + trim(rs.Eq(1).Find("span.house_basic_title_content_item3").Text())
 	经营状态 := trim(rs.Eq(2).Find("span.house_basic_title_content_item3").Text())
