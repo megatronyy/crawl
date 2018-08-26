@@ -38,6 +38,9 @@ func getczuint(query *goquery.Document) string {
 /**获取发布人**/
 func publisher(query *goquery.Document) string {
 	发布人, _ := query.Find("div.house-basic-right>div.house_basic_jingji>p.nav>a>img").Attr("alt")
+	if 发布人 == "" {
+		发布人 = query.Find("div.house-basic-right>div.house_basic_jingji>p.nav>span").Text()
+	}
 	return trim(发布人)
 }
 
@@ -61,6 +64,7 @@ func getdetails(query *goquery.Document) string {
 	详情, _ := query.Find("div#generalSound>div.general-item-wrap").Html()
 	return 详情
 }
+
 /**获取其它**/
 func getother(query *goquery.Document) (string, string, string, string, string, string, string) {
 	rs := query.Find("div.house-basic-right>ul.house_basic_title_content>li")
@@ -74,16 +78,12 @@ func getother(query *goquery.Document) (string, string, string, string, string, 
 
 	return 面积, 类型, 经营状态, 历史经营, 付款方式, 租约方式, 详细地址
 }
+
 /**获取详细地址**/
 func getaddress(s *goquery.Selection) string {
 	var a string
 	s.Find(".house_basic_title_content_item3").Each(func(i int, selection *goquery.Selection) {
-		if i==0{
-			a += trim(selection.Text()) + " "
-		}else{
-			a += trim(selection.Text())
-		}
-
+		a += trim(selection.Text()) + " "
 	})
 	return a
 }
