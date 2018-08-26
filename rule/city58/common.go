@@ -61,18 +61,26 @@ func getdetails(query *goquery.Document) string {
 	详情, _ := query.Find("div#generalSound>div.general-item-wrap").Html()
 	return 详情
 }
-
+/**获取其它**/
 func getother(query *goquery.Document) (string, string, string, string, string, string, string) {
 	rs := query.Find("div.house-basic-right>ul.house_basic_title_content>li")
-	面积 := trim(rs.Eq(1).Find(".house_basic_title_content_item2").Text())
-	类型 := trim(rs.Eq(1).Find("a.house_basic_title_content_item3").Text()) + trim(rs.Eq(1).Find("span.house_basic_title_content_item3").Text())
-	经营状态 := trim(rs.Eq(2).Find("span.house_basic_title_content_item3").Text())
-	历史经营 := trim(rs.Eq(3).Find("span.house_basic_title_content_item3").Text())
-	付款方式 := trim(rs.Eq(4).Find("span.house_basic_title_content_item3").Text())
-	租约方式 := trim(rs.Eq(5).Find("span.house_basic_title_content_item3").Text())
-	详细地址 := trim(rs.Eq(6).Find("span.house_basic_title_content_item3").Text())
+	面积 := trim(rs.Eq(0).Find(".house_basic_title_content_item2").Text())
+	类型 := trim(rs.Eq(0).Find("a.house_basic_title_content_item3").Text()) + trim(rs.Eq(1).Find("span.house_basic_title_content_item3").Text())
+	经营状态 := trim(rs.Eq(1).Find("span.house_basic_title_content_item3").Text())
+	历史经营 := trim(rs.Eq(2).Find("span.house_basic_title_content_item3").Text())
+	付款方式 := trim(rs.Eq(3).Find("span.house_basic_title_content_item3").Text())
+	租约方式 := trim(rs.Eq(4).Find("span.house_basic_title_content_item3").Text())
+	详细地址 := getaddress(rs.Eq(5))
 
 	return 面积, 类型, 经营状态, 历史经营, 付款方式, 租约方式, 详细地址
+}
+/**获取详细地址**/
+func getaddress(s *goquery.Selection) string {
+	var a string
+	s.Find(".house_basic_title_content_item3").Each(func(i int, selection *goquery.Selection) {
+		a += trim(selection.Text())
+	})
+	return trim(a)
 }
 
 /**去掉空格换行符**/
